@@ -28,6 +28,51 @@ class Tree {
       this.insert(num, root.right);
     }
   }
+
+  delete(num, root = this.root) {
+    let leftChild = root.left;
+    let rightChild = root.right;
+
+    if (leftChild && leftChild.data === num) {
+      if (!leftChild.left && !leftChild.right) {
+        root.left = null;
+        return;
+      }
+      if (leftChild.left && leftChild.right) {
+        //later
+        console.log("easd");
+        return;
+      }
+      if (leftChild.left || leftChild.right) {
+        let successor = leftChild.left || leftChild.right;
+        root.left = successor;
+        return;
+      }
+    }
+
+    if (rightChild && rightChild.data === num) {
+      if (!rightChild.left && !rightChild.right) {
+        root.right = null;
+        return;
+      }
+      if (rightChild.left && rightChild.right) {
+        //later
+        console.log("easd");
+        return;
+      }
+      if (rightChild.left || rightChild.right) {
+        let successor = rightChild.left || rightChild.right;
+        root.right = successor;
+        return;
+      }
+    }
+
+    if (num < root.data) {
+      this.delete(num, root.left);
+    } else if (num > root.data) {
+      this.delete(num, root.right);
+    }
+  }
 }
 
 function buildTree(arr, start = 0, end = arr.length - 1) {
@@ -58,5 +103,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let sortedArr = [1, 2, 3, 4, 5, 6, 7];
 let newTree = new Tree(sortedArr);
 newTree.insert(10);
+// newTree.delete(1);
 prettyPrint(newTree.root);
-console.log(newTree);
