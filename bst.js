@@ -39,6 +39,13 @@ class Tree {
         if (parent.left === match) parent.left = null;
         else if (parent.right === match) parent.right = null;
         return;
+      } else if (match.left && match.right) {
+        //later
+      } else if (match.left || match.right) {
+        if (parent.left === match) parent.left = match.left || match.right;
+        else if (parent.right === match)
+          parent.right = match.left || match.right;
+        return;
       }
     }
   }
