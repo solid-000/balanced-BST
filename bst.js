@@ -30,20 +30,17 @@ class Tree {
   }
 
   delete(num, node = this.root) {
-    let match;
-    if (node === null) return null;
-    else if (node.data === num) {
-      return (match = node);
-    } else if (num < node.data) {
-      match = this.delete(num, node.left);
-    } else if (num > node.data) {
-      match = this.delete(num, node.right);
+    let match = this.get(num);
+    if (match === null) {
+      console.log(`${num} is not stored in the tree.`);
+    } else {
+      let parent = this.findParent(match);
+      if (!match.left && !match.right) {
+        if (parent.left === match) parent.left = null;
+        else if (parent.right === match) parent.right = null;
+        return;
+      }
     }
-
-    return match;
-    // if (!match.left && !match.right) {
-    //   match = null;
-    // }
   }
 
   findParent(child, parent = this.root) {
@@ -57,6 +54,18 @@ class Tree {
       return this.findParent(child, parent.left);
     } else if (child.data > parent.data) {
       return this.findParent(child, parent.right);
+    }
+  }
+
+  get(num, root = this.root) {
+    if (root === null) {
+      return null;
+    } else if (num === root.data) {
+      return root;
+    } else if (num < root.data) {
+      return this.get(num, root.left);
+    } else if (num > root.data) {
+      return this.get(num, root.right);
     }
   }
 }
