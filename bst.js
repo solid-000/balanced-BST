@@ -29,48 +29,34 @@ class Tree {
     }
   }
 
-  delete(num, root = this.root) {
-    let leftChild = root.left;
-    let rightChild = root.right;
-
-    if (leftChild && leftChild.data === num) {
-      if (!leftChild.left && !leftChild.right) {
-        root.left = null;
-        return;
-      }
-      if (leftChild.left && leftChild.right) {
-        //later
-        console.log("easd");
-        return;
-      }
-      if (leftChild.left || leftChild.right) {
-        let successor = leftChild.left || leftChild.right;
-        root.left = successor;
-        return;
-      }
+  delete(num, node = this.root) {
+    let match;
+    if (node === null) return null;
+    else if (node.data === num) {
+      return (match = node);
+    } else if (num < node.data) {
+      match = this.delete(num, node.left);
+    } else if (num > node.data) {
+      match = this.delete(num, node.right);
     }
 
-    if (rightChild && rightChild.data === num) {
-      if (!rightChild.left && !rightChild.right) {
-        root.right = null;
-        return;
-      }
-      if (rightChild.left && rightChild.right) {
-        //later
-        console.log("easd");
-        return;
-      }
-      if (rightChild.left || rightChild.right) {
-        let successor = rightChild.left || rightChild.right;
-        root.right = successor;
-        return;
-      }
-    }
+    return match;
+    // if (!match.left && !match.right) {
+    //   match = null;
+    // }
+  }
 
-    if (num < root.data) {
-      this.delete(num, root.left);
-    } else if (num > root.data) {
-      this.delete(num, root.right);
+  findParent(child, parent = this.root) {
+    if (parent === null) return null;
+    else if (
+      (parent.left && parent.left.data === child.data) ||
+      (parent.right && parent.right.data === child.data)
+    ) {
+      return parent;
+    } else if (child.data < parent.data) {
+      return this.findParent(child, parent.left);
+    } else if (child.data > parent.data) {
+      return this.findParent(child, parent.right);
     }
   }
 }
@@ -100,8 +86,13 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let sortedArr = [1, 2, 3, 4, 5, 6, 7];
-let newTree = new Tree(sortedArr);
-newTree.insert(10);
-// newTree.delete(1);
-prettyPrint(newTree.root);
+// let sortedArr = [
+//   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+// ];
+let sortedArr = [1, 2, 3, 4, 5, 6, 7, 8];
+let test = new Tree(sortedArr);
+test.insert(0.5);
+// test.insert(2.6);
+// test.insert(2.4);
+
+prettyPrint(test.root);
