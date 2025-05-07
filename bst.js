@@ -148,6 +148,36 @@ class Tree {
     }
     this.levelOrder(callback, queue);
   }
+
+  preOrder(callback, node = this.root) {
+    if (typeof callback !== "function") {
+      throw new Error("Callback function not provided!");
+    }
+    if (!node) return;
+    callback(node);
+    if (node.left) this.preOrder(callback, node.left);
+    if (node.right) this.preOrder(callback, node.right);
+  }
+
+  inOrder(callback, node = this.root) {
+    if (typeof callback !== "function") {
+      throw new Error("Callback function not provided!");
+    }
+    if (!node) return;
+    if (node.left) this.inOrder(callback, node.left);
+    callback(node);
+    if (node.right) this.inOrder(callback, node.right);
+  }
+
+  postOrder(callback, node = this.root) {
+    if (typeof callback !== "function") {
+      throw new Error("Callback function not provided!");
+    }
+    if (!node) return;
+    if (node.left) this.postOrder(callback, node.left);
+    if (node.right) this.postOrder(callback, node.right);
+    callback(node);
+  }
 }
 
 function buildTree(arr, start = 0, end = arr.length - 1) {
@@ -175,9 +205,13 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let sortedArr = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-];
+let sortedArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 let test = new Tree(sortedArr);
 
 prettyPrint(test.root);
+
+function print(node) {
+  console.log(node.data);
+}
+
+test.inOrder(print);
