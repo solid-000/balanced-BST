@@ -30,7 +30,7 @@ class Tree {
   }
 
   delete(num, node = this.root) {
-    let match = this.get(num);
+    let match = this.find(num);
     if (match === null) {
       console.log(`${num} is not stored in the tree.`);
     } //root condition
@@ -115,15 +115,15 @@ class Tree {
     }
   }
 
-  get(num, root = this.root) {
+  find(num, root = this.root) {
     if (root === null) {
       return null;
     } else if (num === root.data) {
       return root;
     } else if (num < root.data) {
-      return this.get(num, root.left);
+      return this.find(num, root.left);
     } else if (num > root.data) {
-      return this.get(num, root.right);
+      return this.find(num, root.right);
     }
   }
 
