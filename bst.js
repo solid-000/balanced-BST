@@ -39,7 +39,7 @@ class Tree {
         this.root = null;
         return;
       } else if (match.left && match.right) {
-        let successor = this.getMin(match.right);
+        let successor = this.getSuccessor(match.right);
         let succParent = this.findParent(successor);
         if (match.right !== successor && !successor.right) {
           succParent.left = null;
@@ -68,7 +68,7 @@ class Tree {
         return;
       } //Two child condition
       else if (match.left && match.right) {
-        let successor = this.getMin(match.right);
+        let successor = this.getSuccessor(match.right);
         let succParent = this.findParent(successor);
         if (match.right !== successor && !successor.right) {
           succParent.left = null;
@@ -127,9 +127,9 @@ class Tree {
     }
   }
 
-  getMin(node) {
+  getSuccessor(node) {
     if (!node.left) return node;
-    else if (node.left) return this.getMin(node.left);
+    else if (node.left) return this.getSuccessor(node.left);
   }
 
   levelOrder(callback, queue = [this.root]) {
