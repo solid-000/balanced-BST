@@ -133,6 +133,9 @@ class Tree {
   }
 
   levelOrder(callback, queue = [this.root]) {
+    if (typeof callback !== "function") {
+      throw new Error("Callback function not provided!");
+    }
     if (queue.length === 0) {
       return;
     }
