@@ -131,6 +131,20 @@ class Tree {
     if (!node.left) return node;
     else if (node.left) return this.getMin(node.left);
   }
+
+  levelOrder(callback, queue = [this.root]) {
+    if (queue.length === 0) {
+      return;
+    }
+
+    if (queue[0]) {
+      callback(queue[0]);
+      if (queue[0].left) queue.push(queue[0].left);
+      if (queue[0].right) queue.push(queue[0].right);
+      queue.shift();
+    }
+    this.levelOrder(callback, queue);
+  }
 }
 
 function buildTree(arr, start = 0, end = arr.length - 1) {
@@ -162,12 +176,5 @@ let sortedArr = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
 ];
 let test = new Tree(sortedArr);
-// test.insert(16.5);
-// test.insert(17.5);
-// test.insert(5.9);
-// test.insert(5.8);
-// test.insert(5.9);
-// test.insert(5.7);
-// test.insert(5.75);
 
 prettyPrint(test.root);
