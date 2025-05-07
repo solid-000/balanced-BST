@@ -190,6 +190,27 @@ class Tree {
     if (node.right) this.postOrder(callback, node.right);
     callback(node);
   }
+
+  height(node) {
+    if (typeof node !== "object") {
+      node = this.find(node);
+      if (node === null) return null;
+    }
+    if (!node) return -1;
+    let lHeight = this.height(node.left);
+    let rHeight = this.height(node.right);
+    return Math.max(lHeight, rHeight) + 1;
+  }
+
+  depth(node) {
+    if (typeof node !== "object") {
+      node = this.find(node);
+      if (node === null) return null;
+    }
+    if (node === this.root) return 0;
+    let depth = this.depth(this.findParent(node));
+    return depth + 1;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -205,7 +226,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let sortedArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+let sortedArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 let test = new Tree(sortedArr);
 
 prettyPrint(test.root);
