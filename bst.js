@@ -6,7 +6,19 @@ class Node {
 
 class Tree {
   constructor(arr) {
-    this.root = buildTree(arr);
+    this.root = this.buildTree(arr);
+  }
+
+  buildTree(arr, start = 0, end = arr.length - 1) {
+    if (start > end) return null;
+
+    let mid = Math.floor((start + end) / 2);
+    let node = new Node(arr[mid]);
+
+    node.left = this.buildTree(arr, start, mid - 1);
+    node.right = this.buildTree(arr, mid + 1, end);
+
+    return node;
   }
 
   insert(num, root = this.root) {
@@ -180,18 +192,6 @@ class Tree {
   }
 }
 
-function buildTree(arr, start = 0, end = arr.length - 1) {
-  if (start > end) return null;
-
-  let mid = Math.floor((start + end) / 2);
-  let node = new Node(arr[mid]);
-
-  node.left = buildTree(arr, start, mid - 1);
-  node.right = buildTree(arr, mid + 1, end);
-
-  return node;
-}
-
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
     return;
@@ -205,13 +205,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let sortedArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let sortedArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 let test = new Tree(sortedArr);
 
 prettyPrint(test.root);
-
-function print(node) {
-  console.log(node.data);
-}
-
-test.inOrder(print);
