@@ -33,15 +33,66 @@ class Tree {
     let match = this.get(num);
     if (match === null) {
       console.log(`${num} is not stored in the tree.`);
-    } else {
+    } //root condition
+    else if (match === this.root) {
+      if (!match.left && !match.right) {
+        this.root = null;
+        return;
+      } else if (match.left && match.right) {
+        let successor = this.getMin(match.right);
+        let succParent = this.findParent(successor);
+        if (match.right !== successor && !successor.right) {
+          succParent.left = null;
+        }
+        if (match.right !== successor && successor.right) {
+          succParent.left = successor.right;
+          successor.right = null;
+        }
+        successor.left = match.left;
+        if (match.right !== successor) {
+          successor.right = match.right;
+        }
+        this.root = successor;
+        return;
+      } else if (match.left || match.right) {
+        this.root = match.left || match.right;
+        return;
+      }
+    } //non-root condition
+    else {
       let parent = this.findParent(match);
+      //Leaf node condition
       if (!match.left && !match.right) {
         if (parent.left === match) parent.left = null;
         else if (parent.right === match) parent.right = null;
         return;
-      } else if (match.left && match.right) {
-        //later
-      } else if (match.left || match.right) {
+      } //Two child condition
+      else if (match.left && match.right) {
+        let successor = this.getMin(match.right);
+        let succParent = this.findParent(successor);
+        if (match.right !== successor && !successor.right) {
+          succParent.left = null;
+        }
+        if (match.right !== successor && successor.right) {
+          succParent.left = successor.right;
+          successor.right = null;
+        }
+        if (parent.left === match) {
+          successor.left = match.left;
+          if (match.right !== successor) {
+            successor.right = match.right;
+          }
+          parent.left = successor;
+        } else {
+          successor.left = match.left;
+          if (match.right !== successor) {
+            successor.right = match.right;
+          }
+          parent.right = successor;
+        }
+        return;
+      } //One child confition
+      else if (match.left || match.right) {
         if (parent.left === match) parent.left = match.left || match.right;
         else if (parent.right === match)
           parent.right = match.left || match.right;
@@ -75,6 +126,11 @@ class Tree {
       return this.get(num, root.right);
     }
   }
+
+  getMin(node) {
+    if (!node.left) return node;
+    else if (node.left) return this.getMin(node.left);
+  }
 }
 
 function buildTree(arr, start = 0, end = arr.length - 1) {
@@ -102,13 +158,16 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-// let sortedArr = [
-//   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-// ];
-let sortedArr = [1, 2, 3, 4, 5, 6, 7, 8];
+let sortedArr = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+];
 let test = new Tree(sortedArr);
-test.insert(0.5);
-// test.insert(2.6);
-// test.insert(2.4);
+// test.insert(16.5);
+// test.insert(17.5);
+// test.insert(5.9);
+// test.insert(5.8);
+// test.insert(5.9);
+// test.insert(5.7);
+// test.insert(5.75);
 
 prettyPrint(test.root);
