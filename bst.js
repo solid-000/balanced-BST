@@ -255,5 +255,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 let sortedArr = [3, 8, 14, 19, 25, 32, 38, 45, 51, 57, 63, 70, 76, 82, 91];
 let test = new Tree(sortedArr);
+test.insert(80);
+test.insert(81);
 
 prettyPrint(test.root);
