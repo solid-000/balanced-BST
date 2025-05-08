@@ -8,7 +8,7 @@ Use `const tree = new Tree(array)` to create a new binary tree from an array.
 
 ## Available Functions:
 
-- `insert(data)`: Inserts data into the tree appropriate position.
+- `insert(data)`: Inserts data into the tree in the appropriate position.
 - `delete(data)`: Removes the node containing the specified data.
 - `find(data)`: Returns the node containing the specified data.
 - `levelOrder(callback)`: Maps the callback function provided to all nodes in level order traversal.
