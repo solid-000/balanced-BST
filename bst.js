@@ -191,7 +191,7 @@ class Tree {
     callback(node);
   }
 
-  height(node) {
+  height(node = this.root) {
     if (typeof node !== "object") {
       node = this.find(node);
       if (node === null) return null;
@@ -202,7 +202,7 @@ class Tree {
     return Math.max(lHeight, rHeight) + 1;
   }
 
-  depth(node) {
+  depth(node = this.node) {
     if (typeof node !== "object") {
       node = this.find(node);
       if (node === null) return null;
