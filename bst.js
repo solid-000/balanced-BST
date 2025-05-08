@@ -232,6 +232,12 @@ class Tree {
       console.log("Tree rebalanced successfully!");
     }
   }
+
+  print(callback) {
+    let array = [];
+    this[callback]((node) => array.push(node.data));
+    console.log(array);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -247,10 +253,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let sortedArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let sortedArr = [3, 8, 14, 19, 25, 32, 38, 45, 51, 57, 63, 70, 76, 82, 91];
 let test = new Tree(sortedArr);
-test.insert(11);
-test.insert(12);
-test.insert(13);
 
 prettyPrint(test.root);
