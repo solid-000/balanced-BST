@@ -211,6 +211,16 @@ class Tree {
     let depth = this.depth(this.findParent(node));
     return depth + 1;
   }
+
+  isBalaced(node = this.root) {
+    if (!node) return true;
+    if (Math.abs(this.height(node.left) - this.height(node.right)) > 1) {
+      console.log(node);
+      return false;
+    } else {
+      return this.isBalaced(node.left) && this.isBalaced(node.right);
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -226,7 +236,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let sortedArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+let sortedArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 let test = new Tree(sortedArr);
+test.insert(11);
+test.insert(8.5);
 
 prettyPrint(test.root);
