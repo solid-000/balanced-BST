@@ -1,4 +1,4 @@
-# Balanced Binary Tree
+# Balanced Binary Search Tree
 
 This is my implementation of a binary tree as part of [The Odin Project](https://www.theodinproject.com/lessons/javascript-binary-search-trees).
 
