@@ -222,7 +222,7 @@ class Tree {
   }
 
   rebalance() {
-    if (this.isBalanced === true) {
+    if (this.isBalanced() === true) {
       console.log("Tree is balanced.");
       return;
     } else {
